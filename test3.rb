@@ -6,24 +6,32 @@
 
 # 3 = λfx. f (f (f x) 
 
-ZERO   = -> p { -> x { x }}
-ONE    = -> p { -> x { p[x] }}
-TWO    = -> p { -> x { p[p[x]] }}
-THREE  = -> p { -> x { p[p[p[x]]] }}
+ZERO   = -> f { -> x { x }}
+ONE    = -> f { -> x { f[x] }}
+TWO    = -> f { -> x { f[f[x]] }}
+THREE  = -> f { -> x { f[f[f[x]]] }}
 
-succ   = -> n { -> p { -> x { p[n[p][x]] }}}
+# succ = λnfx. f(n f x)
+# ペアノの公理?
+
+succ   = -> n { -> f { -> x { f[n[f][x]] }}}
 FOUR   = succ[THREE]
 FIVE   = succ[FOUR]
+
+# plus = λmnfx. m f (n f x)
 
 plus   = -> m { -> n { -> f { -> x { m[f][n[f][x]] }}}}
 SIX    = plus[TWO][FOUR]
 
-number = -> p { p[-> v { v+1 }][0] }
+# mult = λmn. m (plus n) 0
+mult = -> m { -> n { m[plus[n]][ZERO] }}
+TWENTY = mult[FOUR][FIVE]
 
-p number[FIVE] # => 5
-p number[SIX]  # => 6
+number = -> f { f[-> v { v+1 }][0] }
 
-
+p number[FIVE]   # => 5
+p number[SIX]    # => 6
+p number[TWENTY] # => 20
   
 
   
