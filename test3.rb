@@ -1,6 +1,7 @@
 #
 # チャーチ数というものらしい
 # https://ja.wikipedia.org/wiki/ラムダ計算
+# https://en.wikipedia.org/wiki/Church_encoding
 # https://uid0130.blogspot.com/2013/05/x.html
 #
 
